@@ -1,8 +1,13 @@
 from typing import List, Callable, Tuple
 from .prometheus_label import Label
 from datetime import datetime
+import calendar
 
 __all__ = ['QueryBuilder']
+
+
+def datetime_to_unix_timestamp(to_convert_datetime: datetime):
+    return calendar.timegm(to_convert_datetime.utctimetuple())
 
 
 def builder_instance_retriever(func: Callable) -> Callable:
@@ -37,8 +42,8 @@ class QueryBuilder:
             labels_section = f'{{{",".join(str(label) for label in self.labels)}}}'
             promql_query += labels_section
         if self.range_vector_selector:
-            epoch_start_time = int(self.range_vector_selector[0].timestamp())
-            epoch_end_time = int(self.range_vector_selector[1].timestamp())
+            epoch_start_time = datetime_to_unix_timestamp(self.range_vector_selector[0])
+            epoch_end_time = datetime_to_unix_timestamp(self.range_vector_selector[1])
             promql_query = f'{promql_query}[{epoch_start_time}s:{epoch_end_time}s]'
         elif self.time_duration:
             promql_query = f'{promql_query}[{self.time_duration}]'
