@@ -1,4 +1,5 @@
 from pypromql.query.prometheus_query_builder import QueryBuilder
+from datetime import datetime
 
 __all__ = ['Query']
 
@@ -20,3 +21,10 @@ class Query:
         :return: QueryBuilder
         """
         return cls._get_builder().metric(metric_name=metric_name)
+
+
+if __name__ == '__main__':
+    print(Query.metric('scrape_duration_seconds')
+          .label("instance", "localhost:9090")
+          .label("job", "prometheus")
+          .between_datetime(datetime(2023, 6, 10, 14, 10, 0), datetime(2023, 6, 10, 14, 12, 0)))
