@@ -21,3 +21,5 @@ class Query:
 
     def to_promql_query(self):
         pass
+
+    def add_

@@ -23,4 +23,6 @@ class Label:
         :param other: another Label instance.
         :return: True if 'other' is the same Label-like instance, False otherwise.
         """
-        return self.name == other.name
+        if isinstance(other, Label):
+            return self.name == other.name
+        return False
