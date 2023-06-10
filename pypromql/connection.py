@@ -44,7 +44,7 @@ class PrometheusConnection:
         """
         execute_query_url = f'{self.prometheus_base_url}/api/v1/query?query={query}'
         if to_url_decode:
-            execute_query_url = quote(execute_query_url)
+            execute_query_url = f'{self.prometheus_base_url}/api/v1/query?query={quote(query)}'
         response = self.session.get(execute_query_url)
         response.raise_for_status()
         response_as_dict = json.loads(response.content.decode('utf-8'))
