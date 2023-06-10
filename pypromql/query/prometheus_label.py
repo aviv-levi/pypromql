@@ -19,10 +19,10 @@ class Label:
 
     def __eq__(self, other):
         """
-            Compares two labels by the label name.
+            Compares two labels.
         :param other: another Label instance.
         :return: True if 'other' is the same Label-like instance, False otherwise.
         """
         if isinstance(other, Label):
-            return self.name == other.name
+            return self.name == other.name and self.match_operator == other.match_operator and self.value == other.value
         return False
