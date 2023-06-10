@@ -19,13 +19,14 @@ class QueryBuilder:
     """
 
     def __init__(self):
+        # General parameters
         self.metric_name = ''
         self.labels: List[Label] = []
         self.function_name = ''
-
+        # Time parameters
         self.range_vector_selector: Tuple[datetime, datetime] = None
         self.offset_modifier = ''
-        self.constant_epoch_modifier = ''
+        self.time_duration = ''
 
     def __str__(self):
         return self.to_promql()
@@ -39,9 +40,21 @@ class QueryBuilder:
             epoch_start_time = int(self.range_vector_selector[0].timestamp())
             epoch_end_time = int(self.range_vector_selector[1].timestamp())
             promql_query = f'{promql_query}[{epoch_start_time}s:{epoch_end_time}s]'
+        elif self.time_duration:
+            promql_query = f'{promql_query}[{self.time_duration}]'
+        if self.offset_modifier:
+            promql_query = f'{promql_query} offset {self.offset_modifier} '
         if self.function_name:
             promql_query = f'{self.function_name}({promql_query})'
         return promql_query
+
+    @builder_instance_retriever
+    def offset(self, offset_modifier: str):
+        self.offset_modifier = offset_modifier
+
+    @builder_instance_retriever
+    def before_time_duration(self, time_duration: str):
+        self.time_duration = time_duration
 
     @builder_instance_retriever
     def between_datetime(self, start_time: datetime, end_time: datetime):
