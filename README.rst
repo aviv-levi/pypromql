@@ -72,6 +72,21 @@ Alternatively, you can use the `to_promql()` function:
 
     promql_query.to_promql()
 
+Execute query
+^^^^^^^^^^^^^^^^^^^
+First, we need to create a ``pypromql.connection.PrometheusConnection``.
+
+.. code-block:: python
+
+    connection = PrometheusConnection(prometheus_base_url='http://my-host-name:my-port/')
+    
+Then, execute query and get result using ``PrometheusResult.from_query_builder``.
+
+.. code-block:: python
+
+    result = PrometheusResult.from_query_builder(promql_query, connection)
+
+
 .. _appendix_start:
 
 .. |Brand| replace:: *PyPromql*
