@@ -1,4 +1,4 @@
-from pypromql.result.prometheus_result import PrometheusResult, Metric
+from pypromql.result import PrometheusResult, Metric
 
 
 def test_load_successfully_with_warnings():

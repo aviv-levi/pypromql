@@ -53,12 +53,12 @@ The entry point for building queries is ``pypromql.query.Query``.
 
 .. code-block:: python
 
-    promql_query = Query.metric('scrape_duration_seconds').label('job', 'prometheus')
+    promql_query = Query.metric('up').label('job', 'prometheus')
 
 
 .. code-block:: promql
 
-    scrape_duration_seconds{job="prometheus"}
+    up{job="prometheus"}
 
 To convert the query into raw PromQL, it can be cast to a string.
 
@@ -74,13 +74,13 @@ Alternatively, you can use the `to_promql()` function:
 
 Execute query
 ^^^^^^^^^^^^^^^^^^^
-First, we need to create a ``pypromql.connection.PrometheusConnection``.
+First, we need to create a ``pypromql.PrometheusConnection``.
 
 .. code-block:: python
 
     connection = PrometheusConnection(prometheus_base_url='http://my-host-name:my-port/')
     
-Then, execute query and get result using ``PrometheusResult.from_query_builder``.
+Then, we execute our query and get the result using ``PrometheusResult.from_query_builder``.
 
 .. code-block:: python
 
