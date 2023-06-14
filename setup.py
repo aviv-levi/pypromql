@@ -13,7 +13,7 @@ def get_requirements():
 
 setup(
     name='PyPromql',
-    version='0.0.1',
+    version='0.0.3',
     author='Aviv Levi',
     author_email='60aviv60@gmail.com',
     description='PyPromql is a Python library that simplifies the creation and execution of PromQL queries.',
