@@ -1,4 +1,4 @@
-from pypromql.query.prometheus_query import Query
+from pypromql.query import Query
 from datetime import datetime
 
 
